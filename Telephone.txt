@@ -1,0 +1,91 @@
+package telephone;
+import java.util.*;
+class MissedCall{
+	String name;
+	String number;
+	MissedCall(String name,String number){
+		this.name=name;
+		this.number=number;
+	}
+}
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		HashMap<String,String>contactList=new HashMap<>();
+		contactList.put("9999999","Messi");
+		contactList.put("99999756","Ronaldo");
+		contactList.put("789877878","Agniv");
+		contactList.put("5345345", "Raju");
+		LinkedList<MissedCall>ll=new LinkedList<>();
+		Scanner sc=new Scanner(System.in);
+		while(true) {
+			System.out.println("1.Add missed call 2.remove missed call 3. display missed 4.return");
+			String a=sc.next();
+			
+			switch(a) {
+			case "1":
+					System.out.println("Enter the number ");
+					String num=sc.next();
+					String name="";
+					int isPresent=0;
+					for(Map.Entry<String,String>mp:contactList.entrySet()) {
+						String num2=mp.getKey();
+						if(num2.equals(num)) {
+							isPresent=1;
+							name=mp.getValue();
+							break;
+						}
+						
+					}
+					if(isPresent==0)name="Private Caller";
+					ll.addFirst(new MissedCall(num,name));
+					break;
+			case "2": 
+					System.out.println("Enter the phone number ");
+					String num23=sc.next();
+					int isPresent1=0;
+					Iterator<MissedCall>it=ll.iterator();
+					while(it.hasNext()) {
+						
+						MissedCall cp=it.next();
+						String ter=cp.name;
+						String abc=cp.number;
+						if(ter.equals(num23)) {
+							it.remove();
+							isPresent1=1;
+							break;
+						}
+						
+						
+						
+					}
+					if(isPresent1==0) {
+						System.out.println("Not found ");
+					}
+					break;
+			case "3":
+					Iterator<MissedCall>it1=ll.iterator();
+					while(it1.hasNext()) {
+						MissedCall m=it1.next();
+						String a1=m.name;
+						String b=m.number;
+						System.out.println(a1+" "+b);
+						
+						
+						
+					}
+					break;
+			case "4":
+					return;
+					
+					
+			}
+			
+		}
+		
+		
+
+	}
+
+}

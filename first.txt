@@ -1,0 +1,63 @@
+package One;
+import java.util.*;
+
+class Student{
+	String name;
+	String usn;
+	String dept;
+	String section;
+	double CGPA;
+	
+	public Student(String name,String usn,String dept,String section,double CGPA){
+		this.name=name;
+		this.usn=usn;
+		this.dept=dept;
+		this.section=section;
+		this.CGPA=CGPA;
+	}
+	public void display() {
+		System.out.println("name: "+ name + " use "+ usn + " dept "+ dept + " section "+section + " CGPA "+ CGPA);
+	}
+	
+	
+}
+public class StudentList {
+	
+
+	public static void main(String[] args) {
+		ArrayList<Student>StudentList=new ArrayList<>();
+		StudentList.add(new Student("agniv","1ms21is013","ISE","C",9.8));
+		StudentList.add(new Student("raju","1ms21is045","CSE","C",8.6));
+		StudentList.add(new Student("RAHUL","1ms21is013","CSE","C",9.8));
+		StudentList.add(new Student("LAKHAN","1ms21is013","ISE","C",9.8));
+		
+		System.out.println("Students with cgpa greater than 8.5 \n");
+		Iterator<Student>cgpaIterator=StudentList.iterator();
+		while(cgpaIterator.hasNext()) {
+			Student student=cgpaIterator.next();
+			if(student.CGPA>=8.5) {
+				student.display();
+			}
+		}
+		
+		System.out.println("Students belonging to ISE \n");
+		Iterator<Student>iseIterator=StudentList.iterator();
+		while(iseIterator.hasNext()) {
+			Student student=iseIterator.next();
+			if(student.dept=="ISE") {
+				student.display();
+			}
+		}
+		System.out.println("Students belonging to C \n");
+		Iterator<Student>cIterator=StudentList.iterator();
+		while(cIterator.hasNext()) {
+			Student student=cIterator.next();
+			if(student.section=="C") {
+				student.display();
+			}
+		}
+		
+
+	}
+
+}

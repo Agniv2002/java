@@ -1,0 +1,185 @@
+package three;
+import java.util.*;
+
+class BOOK{
+	String title;
+	String author;
+	String publisher;
+	int price;
+	
+	BOOK (String title,String author,String publisher,int price){
+		this.title=title;
+		this.author=author;
+		this.publisher=publisher;
+		this.price=price;
+	}
+}
+
+class BookCompare implements Comparator<BOOK>{
+	public int compare(BOOK b1,BOOK b2) {
+		if(b1.price>b2.price) {
+			return 1;
+		}
+		if(b1.price==b2.price) {
+			return 0;
+		}
+		return -1;
+	}
+	
+	
+}
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ArrayList<BOOK>bookDetails=new ArrayList<BOOK>();
+		bookDetails.add(new BOOK("harry potter","agniv","raju",1000));
+		bookDetails.add(new BOOK("percy Jackson","agniv","raj2",800));
+		bookDetails.add(new BOOK("Gullivers","Satwik","rrew",200));
+		bookDetails.add(new BOOK("tuesdays","agniv","raju",700));
+		bookDetails.add(new BOOK("morris","shreyas","raju",600));
+		
+		
+		Collections.sort(bookDetails,new BookCompare());
+		System.out.println("The list of books with price in ascending order is \n");
+		for(BOOK b:bookDetails) {
+			System.out.println(b.title+ " ");
+		}
+		
+		
+		HashMap<Integer,BOOK>map=new HashMap<>();
+		int i=100;
+		for(BOOK b1:bookDetails) {
+			map.put(i,b1);
+			i++;
+		}
+		System.out.println(map);
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the name of the author\n");
+		String name=sc.next();
+		for(BOOK b1:bookDetails) {
+			if(b1.author.equals(name)) {
+				System.out.println(b1.title+"\n");
+			}
+		}
+		System.out.println("Enter the price");
+		int price=sc.nextInt();
+		ArrayList<BOOK>p=new ArrayList<>();
+		for(BOOK b1:bookDetails) {
+			if(b1.price>=price) {
+				p.add(b1);
+				
+			}
+		}
+		System.out.println("The list of book with price greater than "+ price + "\n");
+		for(BOOK b1:p) {
+			System.out.println(b1.title+" ");
+		}
+		
+		
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+package bookDemo;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+import java.util.*;
+
+class BOOK{
+	String title;
+	String author;
+	int price;
+	BOOK(String title,int price,String author){
+		this.title=title;
+		this.price=price;
+		this.author=author;
+//		author=this.author;
+	}
+}
+class bookCompare implements Comparator<BOOK>{
+	public int compare(BOOK b1,BOOK b2) {
+		if(b1.price>b2.price)return 1;
+		if(b1.price==b2.price)return 0;
+		return -1;
+	}
+	
+}
+
+public class Main implements ActionListener{
+	JLabel label1=new JLabel("Enter book name");
+	JTextField bookName=new JTextField(10);
+	JLabel label2=new JLabel("Enter the price ");
+	JTextField price=new JTextField(10);
+	JLabel label3=new JLabel("Enter author ");
+	JTextField author=new JTextField(10);
+	JButton insert=new JButton("Insert");
+	JButton display=new JButton("DIsplay");
+	ArrayList<BOOK>a=new ArrayList<>();
+	
+	Main(){
+		JFrame j1=new JFrame("Info");
+		j1.setSize(300,300);
+		j1.setVisible(true);
+		j1.setLayout(new FlowLayout());
+		j1.add(label1);
+		j1.add(bookName);
+		j1.add(label2);
+		j1.add(price);
+		j1.add(label3);
+		j1.add(author);
+		j1.add(insert);
+		insert.addActionListener(this);
+		j1.add(display);
+		display.addActionListener(this);
+	}
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Main m=new Main();
+
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==insert) {
+			String name=bookName.getText();
+			int getPrice=Integer.parseInt(price.getText());
+			String getAuthor=author.getText();
+			a.add(new BOOK(name,getPrice,getAuthor));
+			Iterator<BOOK>it=a.iterator();
+			while(it.hasNext()) {
+				BOOK b1=it.next();
+				System.out.println("author is "+ b1.title + "price is "+ b1.price);
+			}
+			
+			
+		}
+		if(e.getSource()==display) {
+			Collections.sort(a,new bookCompare());
+			Iterator<BOOK>it=a.iterator();
+			while(it.hasNext()) {
+				BOOK b1=it.next();
+				System.out.println("author is "+ b1.title + "price is "+ b1.price);
+			}
+			
+		}
+		
+	}
+
+}

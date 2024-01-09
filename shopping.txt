@@ -1,0 +1,102 @@
+package five;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.*;
+
+public class Main implements ActionListener{
+	int id=125;
+	JLabel label1=new JLabel("Customer Phone: ");
+	JTextField phone=new JTextField(10);
+	JLabel label2=new JLabel("Customer Id ");
+	JTextField cid=new JTextField(10);
+	JButton check=new JButton("Check id");
+	JLabel label3=new JLabel("1. apple 2. mangoes");
+	JLabel label4=new JLabel("Enter item number to purchase");
+	JTextField item_no=new JTextField(10);
+	JLabel label5=new JLabel("Quantity");
+	JTextField quantity=new JTextField(10);
+	JRadioButton rb1=new JRadioButton("Discount 30%");
+	JButton Bill=new JButton("Bill");
+	JTextField am=new JTextField(20);
+	HashMap<String,String>details=new HashMap<String,String>();
+	HashMap<String,Integer>item=new HashMap<String,Integer>();
+	void addDetails() {
+		details.put("999999999", "123");
+		details.put("8888888888", "124");
+		
+	}
+	void addItem() {
+		item.put("1", 500);
+		item.put("2", 700);
+	}
+	Main(){
+		JFrame f1=new JFrame("Customer Information ");
+		addDetails();
+		addItem();
+		String uname=JOptionPane.showInputDialog(null,"Enter username ");
+		String password=JOptionPane.showInputDialog(null,"Enter the password ");
+		if(uname.equals("msrit123") && password.equals("123")) {
+			JOptionPane.showMessageDialog(null, "login valid");
+			f1.setSize(300,300);
+			f1.setVisible(true);
+			f1.setLayout(new FlowLayout());
+			f1.add(label1);
+			f1.add(phone);
+			f1.add(check);
+			f1.add(label2);
+			f1.add(cid);
+			check.addActionListener(this);
+			f1.add(label3);
+			f1.add(label4);
+			f1.add(item_no);
+			f1.add(label5);
+			f1.add(quantity);
+			f1.add(rb1);
+			f1.add(Bill);
+			Bill.addActionListener(this);
+			f1.add(am);
+			
+			
+			
+		}
+		else {
+			JOptionPane.showMessageDialog(null,"Login Invalid");
+		}
+		
+	}
+	public static void main(String args[]) {
+		Main m=new Main();
+		
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==check) {
+			String p1=phone.getText();
+			if(details.containsKey(p1)) {
+				JOptionPane.showMessageDialog(null,"ur customer id is "+ details.get(p1));
+				cid.setText(details.get(p1));
+//				cid.setText(Integer.toString(details.get(p1)));
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "new User and your id is "+ id);
+				cid.setText(Integer.toString(id));
+				details.put(Integer.toString(id),p1);
+				
+			}
+		}
+		else {
+			String no=item_no.getText();
+			int amt=item.get(no);
+			String q=quantity.getText();
+			int q1=Integer.parseInt(q);
+			JOptionPane.showMessageDialog(null,"total cost is"+ q1*amt);
+			
+		}
+	}
+	
+	
+	
+	
+	
+}
+

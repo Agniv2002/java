@@ -1,0 +1,112 @@
+//Create a desktop java application using swings to enable a user to enter student 
+//information such as name, usn, age, address, sgpa of 4 semesters, category. Perform 
+//validations on age(>18 and <=30) and sgpa(range 0 to 10). Display appropriate messages 
+//in pop up boxes to indicate wrong entries, on clicking of the “compute” button. Also find 
+//the cgpa based on the obtained sgpa. On clicking of the “done” button, place the student 
+//details in a hashmap with unique student id as key and student information as value. A 
+//click on the “display” button should display the collection in a textarea in a separate 
+//frame
+package cgpa;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
+
+
+public class Main implements ActionListener {
+	HashMap<Integer,String>map=new HashMap<>();
+	int id=123;
+	JLabel label1=new JLabel("Enter the name ");
+	JTextField name=new JTextField(10);
+	JLabel label2=new JLabel("Enter the age ");
+	JTextField age=new JTextField(20);
+	JLabel label3=new JLabel("Enterh the address");
+	JTextField address=new JTextField(20);
+	JLabel label4=new JLabel("Enter the sgpa1");
+	JTextField sgpa1=new JTextField(20);
+	JLabel label5=new JLabel("Enter the sgpa2");
+	JTextField sgpa2=new JTextField(20);
+	JLabel label6=new JLabel("Enter the sgpa3");
+	JTextField sgpa3=new JTextField(20);
+	JLabel label7=new JLabel("Enter the sgpa4");
+	JTextField sgpa4=new JTextField(20);
+	JButton compute=new JButton("compute");
+	JButton done=new JButton("done");
+	JButton display=new JButton("display");
+	JFrame f2=new JFrame("new");
+	JTextArea j2=new JTextArea();
+	
+	Main(){
+		JFrame j1=new JFrame("Info");
+		j1.setSize(500,500);
+		j1.setVisible(true);
+		j1.setLayout(new GridLayout(9,2));
+		j1.add(label1);
+		j1.add(name);
+		j1.add(label2);
+		j1.add(age);
+		j1.add(label3);
+		j1.add(address);
+		j1.add(label4);
+		j1.add(sgpa1);
+		j1.add(label5);
+		j1.add(sgpa2);
+		j1.add(label6);
+		j1.add(sgpa3);
+		j1.add(label7);
+		j1.add(sgpa4);
+		j1.add(compute);
+
+		compute.addActionListener(this);
+		j1.add(done);
+		done.addActionListener(this);
+		j1.add(display);
+		display.addActionListener(this);
+		
+		f2.add(j2);
+		f2.setVisible(false);
+		f2.setSize(500,500);
+	}
+	
+
+	public static void main(String[] args) {
+		Main m=new Main();
+		// TODO Auto-generated method stub
+
+	}
+	public void actionPerformed(ActionEvent e) {
+		double gets1=Double.parseDouble(sgpa1.getText());
+		double gets2=Double.parseDouble(sgpa2.getText());
+		double gets3=Double.parseDouble(sgpa3.getText());
+		double gets4=Double.parseDouble(sgpa4.getText());
+		int getAge=Integer.parseInt(age.getText());
+		String getName=name.getText();
+		
+		if(e.getSource()==compute) {
+			if(gets1<0 || gets1>10 || gets2<0 || gets2>10 || gets3<0 || gets3>10 || gets4>10 || gets4<0 || getAge>32) {
+				JOptionPane.showMessageDialog(null,"cgpa is invalid");
+				
+			}
+			else {
+				double cgpa=(gets1+gets2+gets3+gets4)/4;
+				JOptionPane.showMessageDialog(null, "cgpa is "+ cgpa);
+			}
+		}
+		if(e.getSource()==done) {
+			map.put(id,getName);
+			id++;
+		}
+		if(e.getSource()==display) {
+			j2.append("Student id is"+ id + "name is"+getName);
+//			for(Map.Entry<Integer,String>c:map.entrySet()) {
+//				int a=c.getKey();
+//				String b=c.getValue();
+//				j2.append("Student id is" + id + "name is "+ b);
+//				
+//			}
+			f2.setVisible(true);
+		}
+	}
+
+}
